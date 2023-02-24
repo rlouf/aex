@@ -38,7 +38,7 @@ dependencies = [
     "jaxlib",
     "blackjax"
 ]
-version="0.0.1"
+version="0.0.2"
 
 [project.urls]
 homepage = "https://github.com/rlouf/aex"

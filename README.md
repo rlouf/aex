@@ -1,6 +1,16 @@
 # AeX
 
-The following currently works:
+## What is Aex?
+
+AeX allows to sample from probabilistic models defined with Aesara using JAX & Blackjax.
+
+## Why Aex?
+
+Aesara is a very expressive and flexible modeling language. Blackjax is fast and modular, but is too low-level for most. AeX brings them together with a no-nonsense wrapper.
+
+## Working
+
+Prior predictive sampling currently works:
 
 ``` python
 import aesara.tensor as at
