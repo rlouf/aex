@@ -1,8 +1,8 @@
 import aesara.tensor as at
-import pytest
-import aex
 import jax
 import numpy as np
+
+import aex
 
 
 def test_count_rvs():

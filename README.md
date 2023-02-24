@@ -38,4 +38,3 @@ Sampling from the posterior predictive distribution:
 sampler = aex.posterior_predictive(trace, Y_rv)
 sampler(rng_key, 1000)
 ```
-

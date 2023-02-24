@@ -1,7 +1,7 @@
 import aesara
+import jax
 from aesara.graph.basic import io_toposort
 from aesara.tensor.random.op import RandomVariable
-import jax
 
 
 def prior_sampler(*rvs):
@@ -22,7 +22,7 @@ def prior_sampler(*rvs):
 
     def one_sample(rng_key):
         keys = [{"jax_state": key} for key in split_key_to_list(rng_key, num_rvs)]
-        return prior_fn(*keys)[:len(rvs)]
+        return prior_fn(*keys)[: len(rvs)]
 
     def sample(rng_key, num_samples):
         return jax.vmap(one_sample)(jax.random.split(rng_key, num_samples))
@@ -32,7 +32,13 @@ def prior_sampler(*rvs):
 
 def count_model_rvs(*rvs):
     """Count the number of `RandomVariable` in a model"""
-    return len([node for node in io_toposort([], list(rvs)) if isinstance(node.op, RandomVariable)])
+    return len(
+        [
+            node
+            for node in io_toposort([], list(rvs))
+            if isinstance(node.op, RandomVariable)
+        ]
+    )
 
 
 def split_key_to_list(rng_key, num):
