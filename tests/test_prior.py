@@ -43,3 +43,16 @@ def test_prior_sampler():
     samples = aex.prior_sampler(mu_rv, Y_rv)(rng_key, 10)
     assert len(samples) == 2
     assert len(np.unique(samples[0])) == 10
+
+    srng = at.random.RandomStream(0)
+    mu_at = at.scalar("mu")
+    x_rv = srng.normal(mu_at, 1)
+
+    rng_key = jax.random.PRNGKey(0)
+    sampler = aex.prior_sampler(x_rv)
+
+    samples_1 = sampler(rng_key, 10, {mu_at: 1.0})
+    samples_1000 = sampler(rng_key, 10, {mu_at: 1000.0})
+    assert len(np.unique(samples_1)) == 10
+    assert len(np.unique(samples_1000)) == 10
+    assert np.all(samples_1000 > samples_1)

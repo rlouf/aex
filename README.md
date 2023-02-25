@@ -18,12 +18,13 @@ import aex
 
 srng = at.random.RandomStream(0)
 
-sigma_rv = srng.normal(1.)
+mu_tt = at.scalar("mu")
+sigma_rv = srng.normal(mu_tt)
 mu_rv = srng.normal(0, 1)
 Y_rv = srng.normal(mu_rv, sigma_rv)
 
 sampler = aex.prior_sampler(Y_rv, mu_rv)
-sampler(rng_key, 1_000_000)
+sampler(rng_key, 1_000_000, {mu_tt: 1.})
 ```
 
 ## Coming
