@@ -1,1 +1,3 @@
 /aex.egg-info/
+/aex/__pycache__/
+/tests/__pycache__/*

@@ -42,6 +42,14 @@ def prior_sampler(*rvs):
         samples = jax.vmap(sample_fn, in_axes=in_axes)(
             jax.random.split(rng_key, num_samples), list(inputs.values())
         )
+
+        samples = tuple([s.squeeze() for s in samples])
+        # We'd like to only output the single element of a 1-element tuple, but
+        # this conflicts with what happens in `aex.sample` when we initialize
+        # the state. We can either define `aex.prior` as a convenience wrapper
+        # of this one, or return the single element here and write a
+        # `find_init_position` function that undoes this
+
         if len(samples) == 1:
             return samples[0]
 
